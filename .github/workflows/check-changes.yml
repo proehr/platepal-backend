@@ -1,0 +1,22 @@
+name: Tests & Code Coverage
+on: [push, pull_request]
+jobs:
+  check:
+    name: Unit tests & Code Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17'
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Run Tests
+        run: mvn -B test
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3

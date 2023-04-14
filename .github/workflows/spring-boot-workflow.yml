@@ -34,9 +34,9 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        script: |
-          cd ${{ secrets.PROJECT_PATH }}
-          git pull origin master
-          mvn clean package -DskipTests
-          docker compose up --build -d --remove-orphans
-          docker image prune -a -f
+          script: |
+            cd ${{ secrets.PROJECT_PATH }}
+            git pull origin master
+            mvn clean package -DskipTests
+            docker compose up --build -d --remove-orphans
+            docker image prune -a -f
