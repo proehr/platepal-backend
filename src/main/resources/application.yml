@@ -1,7 +1,17 @@
 spring:
+  config:
+    import: optional:configtree:/run/secrets/
   datasource:
-    url: jdbc:postgresql://localhost:5432/platepal
+    url: jdbc:postgresql://postgresql_db:5432/platepal
     username: postgres
-    password: ${PG_PASSWORD}
+    password: ${postgres_password}
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.xml
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:postgresql://localhost:5432/platepal
+    password: ${PG_PASSWORD}
