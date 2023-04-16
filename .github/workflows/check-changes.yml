@@ -1,8 +1,8 @@
-name: Tests & Code Coverage
+name: Tests
 on: [push]
 jobs:
   check:
-    name: Unit tests & Code Coverage
+    name: Unit tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
