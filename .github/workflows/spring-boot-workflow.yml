@@ -19,6 +19,6 @@ jobs:
           script: |
             cd ${{ secrets.PROJECT_PATH }}
             git pull origin master
-            mvn clean package -DskipTests
+            /opt/maven/bin/mvn clean package -DskipTests
             docker compose up --build -d --remove-orphans
             docker image prune -a -f
