@@ -11,6 +11,7 @@ services:
       - postgresql_db:postgresql_db
     secrets:
       - postgres_password
+      - jwt_secret
   postgresql_db:
     image: "postgres:latest"
     restart: always
@@ -27,3 +28,5 @@ services:
 secrets:
   postgres_password:
     file: ./postgres_password.txt
+  jwt_secret:
+    file: ./jwt_secret.txt

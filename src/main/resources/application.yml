@@ -7,6 +7,11 @@ spring:
     password: ${postgres_password}
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.xml
+plate-pal:
+  security:
+    jwtSecret: ${jwt_secret}
+    jwtExpirationDays: 30
+
 ---
 spring:
   config:
