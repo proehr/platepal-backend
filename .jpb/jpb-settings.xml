@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+    <component name="JpaPluginProjectSettings" commentSavingStrategy="@Comment annotation" reExcludeTablePrefixes=""
+            reExcludeColumnPrefixes="" reExcludeTableSuffixes="" reExcludeColumnSuffixes="">
+        <option name="entityNameTemplate"/>
+        <option name="isLombokNoArgsConstructor" value="true"/>
+        <option name="useLazyOnToOneAssociations" value="true"/>
+        <option name="scaffoldingLanguage"/>
+    </component>
+    <component name="ReverseEngineeringSettings">
+        <database-infos>
+            <database-info dbms-id="postgres">
+                <mapping-types>
+                    <mapping-type sql-type="timestamp" java-class="java.time.Instant"/>
+                    <mapping-type sql-type="interval" java-class="java.time.Duration"/>
+                    <mapping-type sql-type="unit_type"
+                            java-class="com.pli.codes.platepal.cookbook.model.type.UnitType"/>
+                </mapping-types>
+            </database-info>
+        </database-infos>
+    </component>
+</project>
