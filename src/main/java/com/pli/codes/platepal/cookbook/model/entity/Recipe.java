@@ -13,8 +13,8 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -70,18 +70,18 @@ public class Recipe {
     @ManyToMany
     @JoinTable(name = "recipe_image", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns =
     @JoinColumn(name = "image_id"))
-    private Set<Image> images = new LinkedHashSet<>();
+    private List<Image> images = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe")
-    private Set<RecipeIngredientList> recipeIngredientLists = new LinkedHashSet<>();
+    private List<RecipeIngredientList> recipeIngredientLists = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe")
-    private Set<RecipeNote> recipeNotes = new LinkedHashSet<>();
+    private List<RecipeNote> recipeNotes = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe")
-    private Set<RecipeStep> recipeSteps = new LinkedHashSet<>();
+    private List<RecipeStep> recipeSteps = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe")
-    private Set<RecipeTag> recipeTags = new LinkedHashSet<>();
+    private List<RecipeTag> recipeTags = new ArrayList<>();
 
 }

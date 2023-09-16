@@ -15,8 +15,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.time.Instant;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -48,7 +48,7 @@ public class Collection {
     private Instant createdAt;
 
     @Column(name = "public")
-    private Boolean publicField;
+    private Boolean isPublic;
 
     @Column(name = "updated_at")
     private Instant updatedAt;
@@ -61,17 +61,17 @@ public class Collection {
     private Integer position;
 
     @ManyToMany
-    @JoinTable(name = "account_collection", joinColumns = @JoinColumn(name = "collection_id"), inverseJoinColumns =
-    @JoinColumn(name = "account_id"))
-    private Set<Account> accounts = new LinkedHashSet<>();
+    @JoinTable(schema = "platepal_collections", name = "account_collection",
+        joinColumns = @JoinColumn(name = "collection_id"), inverseJoinColumns = @JoinColumn(name = "account_id"))
+    private List<Account> accounts = new ArrayList<>();
 
     @OneToMany(mappedBy = "parent")
-    private Set<Collection> childCollections = new LinkedHashSet<>();
+    private List<Collection> childCollections = new ArrayList<>();
 
     @OneToMany(mappedBy = "collection")
-    private Set<CollectionRecipeEntry> recipeEntries = new LinkedHashSet<>();
+    private List<CollectionRecipeEntry> recipeEntries = new ArrayList<>();
 
     @OneToMany(mappedBy = "collection")
-    private Set<CollectionTag> tags = new LinkedHashSet<>();
+    private List<CollectionTag> tags = new ArrayList<>();
 
 }

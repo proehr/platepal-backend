@@ -11,8 +11,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -40,6 +40,6 @@ public class RecipeIngredientList {
     private Recipe recipe;
 
     @OneToMany(mappedBy = "ingredientList")
-    private Set<RecipeIngredient> recipeIngredients = new LinkedHashSet<>();
+    private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
 }
