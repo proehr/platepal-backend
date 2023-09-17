@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @NoArgsConstructor
 @Getter
@@ -32,7 +33,12 @@ public class Collection {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "collection_id_gen")
-    @SequenceGenerator(name = "collection_id_gen", sequenceName = "collection_collection_id_seq", allocationSize = 1)
+    @SequenceGenerator(
+        name = "collection_id_gen",
+        sequenceName = "collection_collection_id_seq",
+        allocationSize = 1,
+        schema = "platepal_collections"
+    )
     @Column(name = "collection_id", nullable = false)
     private Long id;
 
@@ -51,6 +57,7 @@ public class Collection {
     private Boolean isPublic;
 
     @Column(name = "updated_at")
+    @UpdateTimestamp
     private Instant updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)

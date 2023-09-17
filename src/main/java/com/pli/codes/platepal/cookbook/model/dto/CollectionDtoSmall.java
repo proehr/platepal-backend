@@ -1,5 +1,6 @@
-package com.pli.codes.platepal.cookbook.model.entity;
+package com.pli.codes.platepal.cookbook.model.dto;
 
+import com.pli.codes.platepal.cookbook.model.entity.Collection;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -8,7 +9,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public class CollectionDto {
+public class CollectionDtoSmall {
 
     private final String title;
     private final Integer position;
