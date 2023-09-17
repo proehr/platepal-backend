@@ -1,5 +1,6 @@
 package com.pli.codes.platepal.cookbook.model.entity;
 
+import io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +20,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
 
 @NoArgsConstructor
 @Getter
@@ -45,15 +47,19 @@ public class Recipe {
     private String description;
 
     @Column(name = "cook_time")
+    @Type(PostgreSQLIntervalType.class)
     private Duration cookTime;
 
     @Column(name = "prep_time")
+    @Type(PostgreSQLIntervalType.class)
     private Duration prepTime;
 
     @Column(name = "active_time")
+    @Type(PostgreSQLIntervalType.class)
     private Duration activeTime;
 
     @Column(name = "total_time")
+    @Type(PostgreSQLIntervalType.class)
     private Duration totalTime;
 
     @Column(name = "created_at")
@@ -68,8 +74,12 @@ public class Recipe {
     private Instant updatedAt;
 
     @ManyToMany
-    @JoinTable(name = "recipe_image", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns =
-    @JoinColumn(name = "image_id"))
+    @JoinTable(
+        name = "recipe_image",
+        joinColumns = @JoinColumn(name = "recipe_id"),
+        inverseJoinColumns = @JoinColumn(name = "image_id"),
+        schema = "platepal_recipes"
+    )
     private List<Image> images = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe")
