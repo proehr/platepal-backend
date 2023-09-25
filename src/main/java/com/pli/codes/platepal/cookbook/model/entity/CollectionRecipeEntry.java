@@ -7,7 +7,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,8 +21,6 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "collection_recipe_entry", schema = "platepal_collections")
 public class CollectionRecipeEntry {
 
-    @SequenceGenerator(name = "collection_recipe_entry_id_gen", sequenceName = "collection_collection_id_seq",
-        allocationSize = 1)
     @EmbeddedId
     private CollectionRecipeEntryId id;
 

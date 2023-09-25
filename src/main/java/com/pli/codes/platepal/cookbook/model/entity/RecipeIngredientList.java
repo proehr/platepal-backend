@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -22,12 +23,13 @@ import org.hibernate.annotations.OnDeleteAction;
 @Getter
 @Entity
 @Table(name = "recipe_ingredient_list", schema = "platepal_recipes")
+@Setter
 public class RecipeIngredientList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recipe_ingredient_list_id_gen")
     @SequenceGenerator(name = "recipe_ingredient_list_id_gen", sequenceName = "recipe_ingredient_list_list_id_seq",
-            allocationSize = 1)
+        allocationSize = 1, schema = "platepal_recipes")
     @Column(name = "list_id", nullable = false)
     private Long id;
 

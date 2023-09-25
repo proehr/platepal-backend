@@ -18,19 +18,22 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "recipe", schema = "platepal_recipes")
 public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recipe_id_gen")
-    @SequenceGenerator(name = "recipe_id_gen", sequenceName = "recipe_recipe_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "recipe_id_gen", sequenceName = "recipe_recipe_id_seq", allocationSize = 1, schema = "platepal_recipes")
     @Column(name = "recipe_id", nullable = false)
     private Long id;
 
@@ -71,6 +74,7 @@ public class Recipe {
     private Long createdBy;
 
     @Column(name = "updated_at")
+    @UpdateTimestamp
     private Instant updatedAt;
 
     @ManyToMany

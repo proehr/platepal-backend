@@ -1,35 +1,33 @@
 package com.pli.codes.platepal.cookbook.model.entity;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "recipe_ingredient", schema = "platepal_recipes")
+@IdClass(RecipeIngredientId.class)
 public class RecipeIngredient {
 
-    @SequenceGenerator(name = "recipe_ingredient_id_gen", sequenceName = "image_image_id_seq", allocationSize = 1)
-    @EmbeddedId
-    private RecipeIngredientId id;
-
-    @MapsId("ingredientId")
+    @Id
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ingredient_id", nullable = false)
+    @JoinColumn(name = "ingredient_id", nullable = false, insertable = false, updatable = false)
     private Ingredient ingredient;
 
-    @MapsId("ingredientListId")
+    @Id
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "ingredient_list_id", nullable = false)
