@@ -1,5 +1,6 @@
 package com.pli.codes.platepal.cookbook.model.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -41,7 +42,7 @@ public class RecipeIngredientList {
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
-    @OneToMany(mappedBy = "ingredientList")
+    @OneToMany(mappedBy = "ingredientList", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
 }

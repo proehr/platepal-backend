@@ -12,8 +12,8 @@ import com.pli.codes.platepal.cookbook.model.entity.RecipeIngredientList;
 import com.pli.codes.platepal.cookbook.model.entity.RecipeNote;
 import com.pli.codes.platepal.cookbook.model.entity.RecipeTag;
 import com.pli.codes.platepal.cookbook.model.repository.IngredientRepository;
+import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Context;
@@ -34,16 +34,16 @@ public interface RecipeMapper {
     RecipeDtoSmall toDtoSmall(
         Recipe recipe);
 
-    default List<String> imagesToImagePaths(List<Image> images) {
-        return images.stream().map(Image::getPath).collect(Collectors.toList());
+    default List<String> imagesToImagePaths(Collection<Image> images) {
+        return images.stream().map(Image::getPath).toList();
     }
 
     @Mapping(target = "imagePaths", expression = "java(imagesToImagePaths(recipe.getImages()))")
     @Mapping(target = "recipeTags", expression = "java(recipeTagsToTagTitles(recipe.getRecipeTags()))")
     RecipeResponseDto toDto(Recipe recipe);
 
-    default List<String> recipeTagsToTagTitles(List<RecipeTag> tags) {
-        return tags.stream().map(RecipeTag::getTagTitle).collect(Collectors.toList());
+    default List<String> recipeTagsToTagTitles(Collection<RecipeTag> tags) {
+        return tags.stream().map(RecipeTag::getTagTitle).toList();
     }
 
     @Mapping(target = "recipeNotes", source = "recipeNoteTexts")
@@ -60,9 +60,7 @@ public interface RecipeMapper {
 
     @AfterMapping
     default void linkRecipeIngredients(@MappingTarget RecipeIngredientList list) {
-        list.getRecipeIngredients().forEach(recipeIngredient -> {
-            recipeIngredient.setIngredientList(list);
-        });
+        list.getRecipeIngredients().forEach(recipeIngredient -> recipeIngredient.setIngredientList(list));
     }
 
     @AfterMapping
@@ -97,7 +95,10 @@ public interface RecipeMapper {
         return recipeTag;
     }
 
+    @Mapping(target = "recipeNotes", source = "recipeNoteTexts")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Recipe partialUpdate(RecipeRequestDto recipeRequestDto, @MappingTarget Recipe recipe);
+    Recipe partialUpdate(RecipeRequestDto recipeRequestDto, @MappingTarget Recipe recipe,
+        @Context IngredientRepository ingredientRepository);
+
 
 }

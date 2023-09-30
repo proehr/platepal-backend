@@ -8,9 +8,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public class IngredientDto {
+public class IngredientRequestDto {
 
-    private final Long id;
     private final String ingredientName;
-    private final String defaultImagePath;
 }

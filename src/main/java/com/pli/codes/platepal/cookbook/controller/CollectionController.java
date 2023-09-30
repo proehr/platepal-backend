@@ -17,9 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,7 +53,7 @@ public class CollectionController {
         Optional<Collection> byId = repository.findById(id);
         if (byId.isPresent()) {
             Collection collection = byId.get();
-            if (collection.getIsPublic() || collection.getAccounts().contains(account)) {
+            if (Boolean.TRUE.equals(collection.getIsPublic()) || collection.getAccounts().contains(account)) {
                 return ResponseEntity.ok(CollectionMapper.INSTANCE.toDto(collection));
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -79,7 +79,7 @@ public class CollectionController {
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<CollectionResponseDto> updateCollection(
         @PathVariable Long id,
         @RequestBody CollectionRequestDto requestDto,

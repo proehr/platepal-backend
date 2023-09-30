@@ -1,6 +1,7 @@
 package com.pli.codes.platepal.cookbook.model.entity;
 
 import io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +34,12 @@ public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recipe_id_gen")
-    @SequenceGenerator(name = "recipe_id_gen", sequenceName = "recipe_recipe_id_seq", allocationSize = 1, schema = "platepal_recipes")
+    @SequenceGenerator(
+        name = "recipe_id_gen",
+        sequenceName = "recipe_recipe_id_seq",
+        allocationSize = 1,
+        schema = "platepal_recipes"
+    )
     @Column(name = "recipe_id", nullable = false)
     private Long id;
 
@@ -86,16 +92,16 @@ public class Recipe {
     )
     private List<Image> images = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<RecipeIngredientList> recipeIngredientLists = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<RecipeNote> recipeNotes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<RecipeStep> recipeSteps = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<RecipeTag> recipeTags = new ArrayList<>();
 
 }
