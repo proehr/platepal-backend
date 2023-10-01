@@ -1,5 +1,6 @@
 package com.pli.codes.platepal.cookbook.model.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,10 +12,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -22,12 +24,13 @@ import org.hibernate.annotations.OnDeleteAction;
 @Getter
 @Entity
 @Table(name = "recipe_ingredient_list", schema = "platepal_recipes")
+@Setter
 public class RecipeIngredientList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recipe_ingredient_list_id_gen")
     @SequenceGenerator(name = "recipe_ingredient_list_id_gen", sequenceName = "recipe_ingredient_list_list_id_seq",
-            allocationSize = 1)
+        allocationSize = 1, schema = "platepal_recipes")
     @Column(name = "list_id", nullable = false)
     private Long id;
 
@@ -39,7 +42,7 @@ public class RecipeIngredientList {
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
-    @OneToMany(mappedBy = "ingredientList")
-    private Set<RecipeIngredient> recipeIngredients = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "ingredientList", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
 }

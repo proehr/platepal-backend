@@ -1,5 +1,7 @@
 package com.pli.codes.platepal.cookbook.model.entity;
 
+import io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,22 +15,31 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "recipe", schema = "platepal_recipes")
 public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recipe_id_gen")
-    @SequenceGenerator(name = "recipe_id_gen", sequenceName = "recipe_recipe_id_seq", allocationSize = 1)
+    @SequenceGenerator(
+        name = "recipe_id_gen",
+        sequenceName = "recipe_recipe_id_seq",
+        allocationSize = 1,
+        schema = "platepal_recipes"
+    )
     @Column(name = "recipe_id", nullable = false)
     private Long id;
 
@@ -45,15 +56,19 @@ public class Recipe {
     private String description;
 
     @Column(name = "cook_time")
+    @Type(PostgreSQLIntervalType.class)
     private Duration cookTime;
 
     @Column(name = "prep_time")
+    @Type(PostgreSQLIntervalType.class)
     private Duration prepTime;
 
     @Column(name = "active_time")
+    @Type(PostgreSQLIntervalType.class)
     private Duration activeTime;
 
     @Column(name = "total_time")
+    @Type(PostgreSQLIntervalType.class)
     private Duration totalTime;
 
     @Column(name = "created_at")
@@ -65,23 +80,28 @@ public class Recipe {
     private Long createdBy;
 
     @Column(name = "updated_at")
+    @UpdateTimestamp
     private Instant updatedAt;
 
     @ManyToMany
-    @JoinTable(name = "recipe_image", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns =
-    @JoinColumn(name = "image_id"))
-    private Set<Image> images = new LinkedHashSet<>();
+    @JoinTable(
+        name = "recipe_image",
+        joinColumns = @JoinColumn(name = "recipe_id"),
+        inverseJoinColumns = @JoinColumn(name = "image_id"),
+        schema = "platepal_recipes"
+    )
+    private List<Image> images = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recipe")
-    private Set<RecipeIngredientList> recipeIngredientLists = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "recipe", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<RecipeIngredientList> recipeIngredientLists = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recipe")
-    private Set<RecipeNote> recipeNotes = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "recipe", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<RecipeNote> recipeNotes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recipe")
-    private Set<RecipeStep> recipeSteps = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "recipe", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<RecipeStep> recipeSteps = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recipe")
-    private Set<RecipeTag> recipeTags = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "recipe", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<RecipeTag> recipeTags = new ArrayList<>();
 
 }

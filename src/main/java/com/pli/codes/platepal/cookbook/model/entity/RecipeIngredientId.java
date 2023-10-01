@@ -1,41 +1,37 @@
 package com.pli.codes.platepal.cookbook.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.Hibernate;
+import lombok.Setter;
 
-@NoArgsConstructor
 @Getter
-@Embeddable
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RecipeIngredientId implements Serializable {
 
     private static final long serialVersionUID = -7771896747101219505L;
-    @Column(name = "ingredient_id", nullable = false)
-    private Long ingredientId;
-
-    @Column(name = "ingredient_list_id", nullable = false)
-    private Long ingredientListId;
+    private Long ingredient;
+    private Long ingredientList;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        RecipeIngredientId entity = (RecipeIngredientId) o;
-        return Objects.equals(this.ingredientId, entity.ingredientId) &&
-                Objects.equals(this.ingredientListId, entity.ingredientListId);
+        RecipeIngredientId that = (RecipeIngredientId) o;
+        return Objects.equals(ingredient, that.ingredient) && Objects.equals(ingredientList,
+            that.ingredientList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ingredientId, ingredientListId);
+        return Objects.hash(ingredient, ingredientList);
     }
-
 }

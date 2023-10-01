@@ -5,6 +5,8 @@ spring:
     url: jdbc:postgresql://postgresql_db:5432/platepal
     username: postgres
     password: ${postgres_password}
+  jpa:
+    show-sql: true
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.xml
 plate-pal:

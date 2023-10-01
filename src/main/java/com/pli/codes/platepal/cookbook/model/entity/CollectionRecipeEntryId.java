@@ -1,26 +1,23 @@
 package com.pli.codes.platepal.cookbook.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
-@NoArgsConstructor
 @Getter
 @Setter
-@Embeddable
+@AllArgsConstructor
+@NoArgsConstructor
 public class CollectionRecipeEntryId implements Serializable {
 
     private static final long serialVersionUID = -7518052542229450723L;
-    @Column(name = "collection_id", nullable = false)
-    private Long collectionId;
 
-    @Column(name = "recipe_id", nullable = false)
-    private Long recipeId;
+    private Long collection;
+    private Long recipe;
 
     @Override
     public boolean equals(Object o) {
@@ -31,12 +28,12 @@ public class CollectionRecipeEntryId implements Serializable {
             return false;
         }
         CollectionRecipeEntryId entity = (CollectionRecipeEntryId) o;
-        return Objects.equals(this.collectionId, entity.collectionId) && Objects.equals(this.recipeId, entity.recipeId);
+        return Objects.equals(this.collection, entity.collection) && Objects.equals(this.recipe, entity.recipe);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(collectionId, recipeId);
+        return Objects.hash(collection, recipe);
     }
 
 }

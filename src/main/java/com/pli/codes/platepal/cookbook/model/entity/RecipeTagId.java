@@ -1,24 +1,16 @@
 package com.pli.codes.platepal.cookbook.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import java.io.Serializable;
 import java.util.Objects;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 
-@NoArgsConstructor
 @Getter
-@Embeddable
-public class RecipeTagId implements Serializable {
+@Setter
+public class RecipeTagId {
 
-    private static final long serialVersionUID = -8162430754199063698L;
-    @Column(name = "tag_title", nullable = false, length = Integer.MAX_VALUE)
     private String tagTitle;
-
-    @Column(name = "recipe_id", nullable = false)
-    private Long recipeId;
+    private Long recipe;
 
     @Override
     public boolean equals(Object o) {
@@ -29,12 +21,12 @@ public class RecipeTagId implements Serializable {
             return false;
         }
         RecipeTagId entity = (RecipeTagId) o;
-        return Objects.equals(this.tagTitle, entity.tagTitle) && Objects.equals(this.recipeId, entity.recipeId);
+        return Objects.equals(this.tagTitle, entity.tagTitle) && Objects.equals(this.recipe, entity.recipe);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tagTitle, recipeId);
+        return Objects.hash(tagTitle, recipe);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.pli.codes.platepal.cookbook.model.entity;
 
 import com.pli.codes.platepal.accounts.model.entity.Account;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -15,13 +16,14 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.time.Instant;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @NoArgsConstructor
 @Getter
@@ -32,7 +34,12 @@ public class Collection {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "collection_id_gen")
-    @SequenceGenerator(name = "collection_id_gen", sequenceName = "collection_collection_id_seq", allocationSize = 1)
+    @SequenceGenerator(
+        name = "collection_id_gen",
+        sequenceName = "collection_collection_id_seq",
+        allocationSize = 1,
+        schema = "platepal_collections"
+    )
     @Column(name = "collection_id", nullable = false)
     private Long id;
 
@@ -48,9 +55,10 @@ public class Collection {
     private Instant createdAt;
 
     @Column(name = "public")
-    private Boolean publicField;
+    private Boolean isPublic;
 
     @Column(name = "updated_at")
+    @UpdateTimestamp
     private Instant updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -61,17 +69,17 @@ public class Collection {
     private Integer position;
 
     @ManyToMany
-    @JoinTable(name = "account_collection", joinColumns = @JoinColumn(name = "collection_id"), inverseJoinColumns =
-    @JoinColumn(name = "account_id"))
-    private Set<Account> accounts = new LinkedHashSet<>();
+    @JoinTable(schema = "platepal_collections", name = "account_collection",
+        joinColumns = @JoinColumn(name = "collection_id"), inverseJoinColumns = @JoinColumn(name = "account_id"))
+    private List<Account> accounts = new ArrayList<>();
 
     @OneToMany(mappedBy = "parent")
-    private Set<Collection> childCollections = new LinkedHashSet<>();
+    private List<Collection> childCollections = new ArrayList<>();
 
-    @OneToMany(mappedBy = "collection")
-    private Set<CollectionRecipeEntry> recipeEntries = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "collection", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<CollectionRecipeEntry> recipeEntries = new ArrayList<>();
 
-    @OneToMany(mappedBy = "collection")
-    private Set<CollectionTag> tags = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "collection", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<CollectionTag> tags = new ArrayList<>();
 
 }

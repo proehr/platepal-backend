@@ -12,24 +12,32 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "recipe_step", schema = "platepal_recipes")
 public class RecipeStep {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recipe_step_id_gen")
-    @SequenceGenerator(name = "recipe_step_id_gen", sequenceName = "recipe_step_step_id_seq", allocationSize = 1)
+    @SequenceGenerator(
+        name = "recipe_step_id_gen",
+        sequenceName = "recipe_step_step_id_seq",
+        allocationSize = 1,
+        schema = "platepal_recipes"
+    )
     @Column(name = "step_id", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "recipe_id")
+    @Setter
     private Recipe recipe;
 
     @Column(name = "step_number")
