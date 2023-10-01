@@ -1,6 +1,5 @@
 package com.pli.codes.platepal.cookbook.model.dto;
 
-import com.pli.codes.platepal.cookbook.model.entity.Recipe;
 import java.time.Instant;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -23,9 +22,9 @@ public class CollectionResponseDto {
     private final Integer position;
     private final List<AccountDto> accounts;
     private final List<ChildCollectionResponseDto> childCollections;
-    private final List<Recipe> recipeEntryRecipes;
+    private final List<RecipeDtoSmall> recipeEntryRecipes;
     private final List<Integer> recipeEntryPositions;
-    private final List<CollectionTagResponseDto> tags;
+    private final List<String> tags;
 
     /**
      * DTO for {@link com.pli.codes.platepal.cookbook.model.entity.Collection}

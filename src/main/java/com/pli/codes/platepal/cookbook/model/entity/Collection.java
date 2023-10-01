@@ -1,6 +1,7 @@
 package com.pli.codes.platepal.cookbook.model.entity;
 
 import com.pli.codes.platepal.accounts.model.entity.Account;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -75,10 +76,10 @@ public class Collection {
     @OneToMany(mappedBy = "parent")
     private List<Collection> childCollections = new ArrayList<>();
 
-    @OneToMany(mappedBy = "collection")
+    @OneToMany(mappedBy = "collection", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<CollectionRecipeEntry> recipeEntries = new ArrayList<>();
 
-    @OneToMany(mappedBy = "collection")
+    @OneToMany(mappedBy = "collection", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<CollectionTag> tags = new ArrayList<>();
 
 }
