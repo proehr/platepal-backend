@@ -1,6 +1,5 @@
 package com.pli.codes.platepal.cookbook.model.entity;
 
-import java.io.Serializable;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +7,7 @@ import org.hibernate.Hibernate;
 
 @Getter
 @Setter
-public class RecipeTagId implements Serializable {
+public class RecipeTagId {
 
     private String tagTitle;
     private Long recipe;

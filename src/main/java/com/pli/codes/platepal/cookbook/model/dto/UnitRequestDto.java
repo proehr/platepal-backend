@@ -7,8 +7,8 @@ import lombok.Getter;
 /**
  * DTO for {@link com.pli.codes.platepal.cookbook.model.entity.Unit}
  */
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
 public class UnitRequestDto {
 
     private final UnitType unitType;

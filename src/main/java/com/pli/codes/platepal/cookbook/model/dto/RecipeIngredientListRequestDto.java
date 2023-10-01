@@ -1,6 +1,5 @@
 package com.pli.codes.platepal.cookbook.model.dto;
 
-import java.io.Serializable;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +9,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public class RecipeIngredientListRequestDto implements Serializable {
+public class RecipeIngredientListRequestDto {
 
     private final String listTitle;
     private final List<RecipeIngredientRequestDto> recipeIngredients;

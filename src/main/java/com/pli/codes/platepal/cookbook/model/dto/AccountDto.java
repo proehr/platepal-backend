@@ -1,6 +1,5 @@
 package com.pli.codes.platepal.cookbook.model.dto;
 
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -9,7 +8,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public class AccountDto implements Serializable {
+public class AccountDto {
 
     private final Long accountId;
     private final String emailAddress;

@@ -1,7 +1,6 @@
 package com.pli.codes.platepal.cookbook.model.dto;
 
 import com.pli.codes.platepal.cookbook.model.entity.RecipeStep;
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,7 +9,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public class RecipeStepDto implements Serializable {
+public class RecipeStepDto {
 
     private final Long id;
     private final Integer stepNumber;

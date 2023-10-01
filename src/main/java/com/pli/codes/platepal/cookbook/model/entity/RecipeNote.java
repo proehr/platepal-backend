@@ -25,7 +25,12 @@ public class RecipeNote {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recipe_note_id_gen")
-    @SequenceGenerator(name = "recipe_note_id_gen", sequenceName = "recipe_note_note_id_seq", allocationSize = 1, schema = "platepal_recipes")
+    @SequenceGenerator(
+        name = "recipe_note_id_gen",
+        sequenceName = "recipe_note_note_id_seq",
+        allocationSize = 1,
+        schema = "platepal_recipes"
+    )
     @Column(name = "note_id", nullable = false)
     private Long id;
 
